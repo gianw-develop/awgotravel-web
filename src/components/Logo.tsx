@@ -10,5 +10,14 @@ export function Logo({ className = "", variant = "full" }: LogoProps) {
     return <Image src="/awgotravel-mark.png" alt="AW GOTRAVEL" width={96} height={96} className={`object-contain ${className}`} />;
   }
 
-  return <Image src="/awgotravel-logo.png" alt="AW GOTRAVEL — Private Travel Design" width={2048} height={682} priority className={`h-auto w-[154px] object-contain sm:w-[184px] ${className}`} />;
+  return (
+    <Image
+      src="/awgotravel-logo-transparent.png"
+      alt="AW GOTRAVEL - Private Travel Design"
+      width={1817}
+      height={279}
+      priority
+      className={`h-auto w-[174px] object-contain sm:w-[210px] ${className}`}
+    />
+  );
 }
