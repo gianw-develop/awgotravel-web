@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
 import { Target, Eye, Lock, Clock, Fingerprint, Globe, ShieldCheck, Building2 } from "lucide-react";
@@ -39,7 +41,7 @@ export default function AboutPage() {
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=2000&q=80')`,
+            backgroundImage: `url('/images/1469854523086-cc02fe5d8800.jpg')`,
           }}
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -92,7 +94,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   We provide personalized travel planning, itinerary design,
-                  destination research, and concierge-style coordination for
+                  destination research, and lifestyle coordination for
                   premium clients. Our clients are founders, executives,
                   investors, families, and high-profile individuals who value
                   privacy, precision, and access above all.
@@ -108,11 +110,7 @@ export default function AboutPage() {
             </AnimatedSection>
             <AnimatedSection delay={200}>
               <div className="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80"
-                  alt="Private travel design"
-                  className="rounded-2xl shadow-2xl w-full"
-                />
+                <Image src="/images/1488646953014-85cb44e25828.jpg" alt="Private travel design" width={800} height={600} sizes="(max-width: 768px) 100vw, 33vw" className="rounded-2xl shadow-2xl w-full" />
                 <div className="absolute -bottom-6 -left-6 bg-gold rounded-xl p-6 shadow-xl">
                   <div className="text-navy font-medium text-3xl">2026</div>
                   <div className="text-navy/60 text-xs uppercase tracking-wider">Est. Wyoming</div>

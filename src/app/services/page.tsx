@@ -23,9 +23,9 @@ const services = [
       "For founders, entrepreneurs, and executives who need to disconnect without losing control. This is not a vacation — it is a strategically designed escape built around your pace, preferences, and need for privacy.",
     includes: [
       "Private destination strategy & selection",
-      "Premium accommodation sourcing & booking",
+      "Accommodation research and shortlist design",
       "Mobility and ground transportation coordination",
-      "Restaurant & dining reservations",
+      "Restaurant and dining recommendations",
       "Exclusive experiences & local access",
       "Quiet workspaces & connectivity planning",
       "Wellness & recovery integration",
@@ -42,13 +42,13 @@ const services = [
       "For business + pleasure trips, networking events, conferences, private meetings, or premium vacations. The client pays because they don't want to waste a single hour searching, comparing, or organizing.",
     includes: [
       "Complete itinerary design & day planning",
-      "Hotel and villa coordination",
-      "Private dining & restaurant bookings",
+      "Hotel and villa research",
+      "Private dining and restaurant recommendations",
       "Premium transfers & car services",
       "Local experiences & cultural access",
       "Flexible agenda management",
       "Pre-trip concierge support",
-      "Provider coordination & confirmations",
+      "Provider research and decision support",
     ],
     invoice: "Executive Lifestyle Journey Planning & Coordination",
   },
@@ -64,7 +64,7 @@ const services = [
       "Premium provider sourcing & coordination",
       "Personalized agenda & scheduling",
       "Concierge support before and during travel",
-      "Change management & rebooking",
+      "Itinerary adaptation and change planning",
       "Complete follow-up & documentation",
       "Multi-party coordination (families, groups)",
       "Access to exclusive events & venues",
@@ -81,8 +81,8 @@ const services = [
     includes: [
       "Custom scope definition & planning",
       "Multi-destination coordination",
-      "Private aviation & ground logistics",
-      "Villa, yacht & property management",
+      "Private aviation and ground logistics research",
+      "Villa, yacht and property research",
       "Security and privacy logistics",
       "Dedicated on-trip travel director",
       "Staff & service team coordination",
@@ -99,7 +99,7 @@ export default function ServicesPage() {
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1436491865332-7a61a109db05?auto=format&fit=crop&w=2000&q=80')`,
+            backgroundImage: `url('/images/1507525428034-b723cf961d3e.jpg')`,
           }}
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -135,7 +135,7 @@ export default function ServicesPage() {
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-20">
-            {services.map((service, i) => (
+            {services.map((service) => (
               <AnimatedSection key={service.title} delay={100}>
                 <div className="border border-gray-100 rounded-2xl p-8 sm:p-12 hover:border-gold/20 hover:shadow-lg transition-all duration-500">
                   <div className="flex items-start justify-between mb-8">

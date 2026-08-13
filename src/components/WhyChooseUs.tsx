@@ -19,7 +19,7 @@ export function WhyChooseUs() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-fixed"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1436491865332-7a61a109db05?auto=format&fit=crop&w=2000&q=80')`,
+          backgroundImage: `url('/images/1507525428034-b723cf961d3e.jpg')`,
         }}
       />
       <div className="absolute inset-0 bg-navy/92" />

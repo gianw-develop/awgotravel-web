@@ -34,7 +34,7 @@ export function Hero() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80')`,
+          backgroundImage: `url('/images/1507525428034-b723cf961d3e.jpg')`,
         }}
       />
       <div className="hero-gradient absolute inset-0" />

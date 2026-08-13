@@ -18,9 +18,13 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "AW GOTRAVEL | Private Travel Design & Lifestyle Coordination",
+  metadataBase: new URL("https://www.awgotravel.com"),
+  title: {
+    default: "AW GOTRAVEL | Private Travel Design",
+    template: "%s | AW GOTRAVEL",
+  },
   description:
-    "AW GOTRAVEL is a private travel design and lifestyle coordination firm for founders, executives, investors, and high-profile clients. We design private journeys around your lifestyle.",
+    "Private travel design and lifestyle coordination for founders, executives, investors, and high-profile clients.",
   icons: {
     icon: "/favicon.png",
     apple: "/favicon.png",
@@ -29,18 +33,28 @@ export const metadata: Metadata = {
     "private travel design",
     "luxury travel coordination",
     "executive travel planning",
-    "lifestyle concierge",
+    "lifestyle coordination",
     "AW GOTRAVEL",
     "bespoke travel experiences",
   ],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "AW GOTRAVEL | Private Travel Design & Lifestyle Coordination",
+    title: "AW GOTRAVEL | Private Travel Design",
     description:
-      "Private travel design for founders, executives & high-profile clients. We don't sell trips — we design private journeys around your lifestyle.",
-    url: "https://www.awgotravel.com",
+      "We design private journeys around your lifestyle. AW GOTRAVEL does not sell flights, rooms, tickets, or packages.",
+    url: "/",
     siteName: "AW GOTRAVEL",
+    images: [{ url: "/favicon.png", width: 512, height: 512, alt: "AW GOTRAVEL" }],
+    locale: "en_US",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "AW GOTRAVEL | Private Travel Design",
+    description: "Private travel design and lifestyle coordination.",
+    images: ["/favicon.png"],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

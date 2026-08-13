@@ -2,34 +2,6 @@ import Link from "next/link";
 import { Logo } from "./Logo";
 import { MapPin, Phone, Mail } from "lucide-react";
 
-function FacebookIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
-
-function XIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
-
-const socialIcons = [FacebookIcon, InstagramIcon, XIcon];
-
 const quickLinks = [
   { href: "/destinations", label: "Destinations" },
   { href: "/services", label: "Services" },
@@ -55,19 +27,8 @@ export function Footer() {
               founders, executives, and high-profile clients.
             </p>
             <p className="text-white/30 text-xs mb-6 font-light">
-              Registered LLC — Wyoming, USA
+              Registered LLC - Wyoming, USA
             </p>
-            <div className="flex gap-4">
-              {socialIcons.map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold transition-colors duration-300"
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
           </div>
 
           <div>
@@ -118,10 +79,10 @@ export function Footer() {
                 <Mail className="w-4 h-4 text-gold shrink-0" />
                 sales@awgotravel.com
               </a>
-              <div className="flex items-center gap-3 text-white/70 text-sm">
+              <a href="tel:+14099953371" className="flex items-center gap-3 text-white/70 text-sm hover:text-gold transition-colors">
                 <Phone className="w-4 h-4 text-gold shrink-0" />
-                Available upon request
-              </div>
+                +1 409 995-3371
+              </a>
               <div className="flex items-start gap-3 text-white/70 text-sm">
                 <MapPin className="w-4 h-4 text-gold shrink-0 mt-0.5" />
                 <span>Wyoming, United States</span>

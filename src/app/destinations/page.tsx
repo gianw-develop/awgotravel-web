@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -10,63 +12,63 @@ const allDestinations = [
     title: "Maldives",
     region: "Indian Ocean",
     description: "Private overwater villas, personal butler service, and pristine reefs — total seclusion in paradise.",
-    image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1514282401047-d79a71a590e8.jpg",
     type: "Island & Wellness",
   },
   {
     title: "Santorini",
     region: "Greece",
     description: "Cliffside suites with caldera views, private yacht charters, and curated Mediterranean dining.",
-    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1570077188670-e3a8d69ac5ff.jpg",
     type: "Culture & Coast",
   },
   {
     title: "Bali",
     region: "Indonesia",
     description: "Jungle retreats, private temple ceremonies, and wellness experiences for deep restoration.",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1537996194471-e657df975ab4.jpg",
     type: "Wellness & Spirit",
   },
   {
     title: "Swiss Alps",
     region: "Switzerland",
     description: "Exclusive chalets, helicopter access, and Michelin-star alpine dining in absolute privacy.",
-    image: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1531366936337-7c912a4589a7.jpg",
     type: "Mountain & Luxury",
   },
   {
     title: "Cancún & Riviera Maya",
     region: "Mexico",
     description: "Private villas, cenote experiences, ancient ruins access, and Caribbean luxury with local immersion.",
-    image: "https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1552074284-5e88ef1aef18.jpg",
     type: "Beach & Culture",
   },
   {
     title: "Tokyo",
     region: "Japan",
     description: "Private ryokan stays, exclusive tea ceremonies, Michelin dining, and curated cultural journeys.",
-    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1540959733332-eab4deabeeaf.jpg",
     type: "Culture & Gastronomy",
   },
   {
     title: "Patagonia",
     region: "Argentina & Chile",
     description: "Remote luxury lodges, glacier expeditions, and private adventures at the edge of the world.",
-    image: "https://images.unsplash.com/photo-1587595431973-160d0d163dad?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1531366936337-7c912a4589a7.jpg",
     type: "Adventure & Nature",
   },
   {
     title: "Paris",
     region: "France",
     description: "Private art tours, Michelin dining, luxury shopping coordination, and cultural immersion at its finest.",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1502602898657-3e91760cbb34.jpg",
     type: "Culture & Lifestyle",
   },
   {
     title: "Dubai",
     region: "UAE",
     description: "Ultra-modern luxury, desert experiences, private yachts, and exclusive access to the Gulf's finest.",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1512453979798-5ea266f8880c.jpg",
     type: "Urban Luxury",
   },
 ];
@@ -78,7 +80,7 @@ export default function DestinationsPage() {
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&fit=crop&w=2000&q=80')`,
+            backgroundImage: `url('/images/1488085061387-422e29b40080.jpg')`,
           }}
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -118,11 +120,7 @@ export default function DestinationsPage() {
               <AnimatedSection key={dest.title} delay={i * 80}>
                 <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
                   <div className="relative h-64 overflow-hidden">
-                    <img
-                      src={dest.image}
-                      alt={dest.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                    <Image src={dest.image} alt={dest.title} width={800} height={600} sizes="(max-width: 768px) 100vw, 33vw" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
                     <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-navy text-[10px] font-medium px-3 py-1 rounded-full uppercase tracking-wider">
                       {dest.type}
