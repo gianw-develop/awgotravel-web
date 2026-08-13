@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Sora, Inter } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -10,20 +10,20 @@ const inter = Inter({
   display: "swap",
 });
 
-const sora = Sora({
-  variable: "--font-sora",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "AW GOTRAVEL | Private Travel Design & Lifestyle Coordination",
+  title: "AW GOTRAVEL | Private Travel Design",
   description:
     "AW GOTRAVEL is a private travel design and lifestyle coordination firm for founders, executives, investors, and high-profile clients. We design private journeys around your lifestyle.",
   icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "/awgotravel-mark.png",
+    apple: "/awgotravel-mark.png",
   },
   keywords: [
     "private travel design",
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     "bespoke travel experiences",
   ],
   openGraph: {
-    title: "AW GOTRAVEL | Private Travel Design & Lifestyle Coordination",
+    title: "AW GOTRAVEL | Private Travel Design",
     description:
-      "Private travel design for founders, executives & high-profile clients. We don't sell trips — we design private journeys around your lifestyle.",
+      "Private travel design and lifestyle coordination for people who prefer a considered way to move.",
     url: "https://www.awgotravel.com",
     siteName: "AW GOTRAVEL",
     type: "website",
@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sora.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Navbar />

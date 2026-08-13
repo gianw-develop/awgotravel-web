@@ -3,12 +3,13 @@
 import { AnimatedSection } from "./AnimatedSection";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const destinations = [
   {
     title: "The Maldives",
     region: "Indian Ocean",
-    description: "Private overwater villas, personal butler, and pristine reefs — designed for total seclusion",
+    description: "Private overwater villas, personal butler, and pristine reefs Ã¢â‚¬â€ designed for total seclusion",
     image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80",
   },
   {
@@ -55,7 +56,7 @@ export function FeaturedDestinations() {
             Where We <span className="font-medium">Create Experiences</span>
           </h2>
           <p className="text-slate max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            Each destination is personally vetted. We coordinate every detail —
+            Each destination is personally vetted. We coordinate every detail Ã¢â‚¬â€
             from accommodation and transport to private access and local expertise.
           </p>
         </AnimatedSection>
@@ -65,11 +66,7 @@ export function FeaturedDestinations() {
             <AnimatedSection key={dest.title} delay={i * 100}>
               <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
                 <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={dest.image}
-                    alt={dest.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <Image src={dest.image} alt={dest.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
                   <div className="absolute bottom-4 left-4">
                     <span className="text-white/60 text-[10px] uppercase tracking-[0.3em]">
