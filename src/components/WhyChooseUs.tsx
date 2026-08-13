@@ -5,7 +5,6 @@ import { Check, Lock, Clock, ShieldCheck, Fingerprint } from "lucide-react";
 import Link from "next/link";
 
 const reasons = [
-  "Registered LLC — Wyoming, United States",
   "All services designed and delivered directly by our team",
   "Transparent pricing with clear scope documentation",
   "Strict confidentiality — your itinerary is never shared",
