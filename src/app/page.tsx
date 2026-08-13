@@ -1,19 +1,23 @@
-import { Hero } from "@/components/Hero";
-import { FeaturedDestinations } from "@/components/FeaturedDestinations";
-import { Services } from "@/components/Services";
-import { WhyChooseUs } from "@/components/WhyChooseUs";
-import { Testimonials } from "@/components/Testimonials";
-import { CTASection } from "@/components/CTASection";
+import Link from "next/link";
+import { ArrowUpRight, Check, MoveRight } from "lucide-react";
+
+const practices = [
+  ["01", "Private brief", "A focused conversation to understand your pace, priorities and the context around the journey."],
+  ["02", "The journey on paper", "A considered itinerary with sequence, timing and the details that make it feel personal."],
+  ["03", "Coordination in motion", "We align the moving parts around the choices you make, so the plan holds together."],
+  ["04", "A plan that can change", "Discreet, thoughtful support when a day, a meeting or a wider plan needs to move."],
+];
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <FeaturedDestinations />
-      <Services />
-      <WhyChooseUs />
-      <Testimonials />
-      <CTASection />
+      <section className="hero-film relative flex min-h-[760px] items-end overflow-hidden px-5 pb-20 pt-36 sm:px-8 lg:min-h-[820px] lg:pb-28"><div className="hero-film-overlay absolute inset-0" /><div className="relative z-10 mx-auto w-full max-w-7xl"><p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.35em] text-gold">Private travel design</p><h1 className="max-w-3xl text-5xl font-light leading-[0.94] text-white sm:text-7xl lg:text-8xl">Leave the<br />ordinary behind.</h1><Link href="/contact" className="mt-9 inline-flex items-center gap-3 bg-gold px-6 py-4 text-[11px] font-bold uppercase tracking-[0.16em] text-navy transition hover:bg-white">Request a private consultation <ArrowUpRight size={15} /></Link></div></section>
+      <section className="bg-stone px-5 py-20 sm:px-8 lg:py-28"><div className="mx-auto max-w-7xl"><div className="max-w-3xl"><span className="line-gold" /><h2 className="font-editorial text-5xl leading-[1] text-navy sm:text-7xl">Every departure begins with a point of view.</h2></div></div></section>
+      <section className="grid bg-navy text-white lg:grid-cols-2"><div className="villa-frame min-h-[430px]" /><div className="flex items-center px-6 py-16 sm:px-12 lg:px-20"><div className="max-w-md"><span className="line-gold" /><h2 className="font-editorial text-4xl leading-tight">We are not a travel agency.</h2><p className="mt-3 text-xl text-white/85">We are private travel designers and lifestyle coordinators.</p><p className="mt-7 leading-7 text-white/65">We design a private journey around you — your interests, your pace, your people and your sense of place. You retain control of your booking decisions; we create the plan and coordinate the details around it.</p></div></div></section>
+      <section className="bg-navy px-5 py-16 text-white sm:px-8 lg:py-20"><div className="mx-auto max-w-7xl"><p className="mb-10 text-center text-[10px] font-semibold uppercase tracking-[0.3em] text-gold">A considered process</p><div className="grid gap-9 border-y border-white/15 py-10 md:grid-cols-4 md:gap-0">{practices.map(([number, title, body]) => <div key={number} className="border-white/15 px-0 md:border-r md:px-7 first:md:pl-0 last:md:border-0"><p className="font-editorial text-4xl text-gold">{number}</p><h3 className="mt-3 text-xl">{title}</h3><p className="mt-4 text-sm leading-6 text-white/60">{body}</p></div>)}</div></div></section>
+      <section className="coast-frame min-h-[380px]" />
+      <section className="bg-navy-dark px-5 py-20 text-white sm:px-8 lg:py-28"><div className="mx-auto max-w-7xl"><h2 className="font-editorial text-center text-4xl sm:text-6xl">What we create. What we do not sell.</h2><div className="mt-14 grid gap-12 border-y border-white/15 py-10 md:grid-cols-2 md:gap-24"><div><p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.25em] text-gold">What we create</p>{["Private travel design", "Bespoke itineraries", "Lifestyle coordination", "Restaurant and experience recommendations", "Local research and timing", "On-trip support"].map((item) => <p className="mb-4 flex gap-3 text-sm text-white/80" key={item}><Check size={16} className="shrink-0 text-gold" />{item}</p>)}</div><div><p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.25em] text-gold">What we do not sell</p>{["Flights", "Hotels or rooms", "Tickets", "Tours as inventory", "Travel packages or bundles", "Retail travel bookings"].map((item) => <p className="mb-4 flex gap-3 text-sm text-white/65" key={item}><span className="text-gold">×</span>{item}</p>)}</div></div></div></section>
+      <section className="inquiry-frame relative overflow-hidden px-5 py-20 sm:px-8 lg:py-28"><div className="inquiry-overlay absolute inset-0" /><div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-between gap-10 lg:flex-row lg:items-end"><div><p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold">Private inquiry</p><h2 className="font-editorial mt-5 max-w-lg text-5xl leading-[1] text-white sm:text-6xl">Your journey begins with a private conversation.</h2><p className="mt-7 text-white/70">sales@awgotravel.com<br />+1 409 995-3371</p></div><Link href="/contact" className="inline-flex w-fit items-center gap-3 border border-gold px-6 py-4 text-[11px] font-bold uppercase tracking-[0.16em] text-gold transition hover:bg-gold hover:text-navy">Start a private brief <MoveRight size={16} /></Link></div></section>
     </>
   );
 }

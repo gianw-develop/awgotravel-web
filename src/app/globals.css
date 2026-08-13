@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-navy: #0B1D3A;
+  --color-navy: #041B45;
   --color-navy-light: #132D54;
-  --color-navy-dark: #070F1D;
-  --color-gold: #C9A84C;
+  --color-navy-dark: #020D22;
+  --color-gold: #C99A2E;
   --color-gold-light: #DBBF6A;
   --color-gold-dark: #A68A3A;
   --color-sky: #4A9BD9;
@@ -84,3 +84,12 @@ h1, h2, h3, h4, h5, h6 {
 .hero-gradient {
   background: linear-gradient(135deg, rgba(11, 29, 58, 0.95) 0%, rgba(19, 45, 84, 0.85) 40%, rgba(74, 155, 217, 0.7) 100%);
 }
+
+.font-editorial { font-family: Georgia, "Times New Roman", serif; letter-spacing: -0.04em; }
+.line-gold { display: block; width: 36px; height: 1px; background: var(--color-gold); margin-bottom: 1.25rem; }
+.hero-film { background: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=85") center / cover; }
+.hero-film-overlay { background: linear-gradient(90deg, rgba(2,13,34,.9) 0%, rgba(2,13,34,.45) 48%, rgba(2,13,34,.28) 100%), linear-gradient(0deg, rgba(2,13,34,.45), transparent 55%); }
+.villa-frame { background: url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85") center / cover; }
+.coast-frame { background: url("https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=2200&q=85") center / cover; }
+.inquiry-frame { background: url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=2000&q=85") center / cover; }
+.inquiry-overlay { background: linear-gradient(90deg, rgba(2,13,34,.95), rgba(2,13,34,.74)); }
