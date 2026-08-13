@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { AnimatedSection } from "./AnimatedSection";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -9,37 +11,37 @@ const destinations = [
     title: "The Maldives",
     region: "Indian Ocean",
     description: "Private overwater villas, personal butler, and pristine reefs — designed for total seclusion",
-    image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1514282401047-d79a71a590e8.jpg",
   },
   {
     title: "Santorini",
     region: "Greece",
     description: "Cliffside suites, private yacht charters, and curated Mediterranean experiences",
-    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1570077188670-e3a8d69ac5ff.jpg",
   },
   {
     title: "Bali",
     region: "Indonesia",
     description: "Jungle retreats, private ceremonies, and wellness experiences for deep restoration",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1537996194471-e657df975ab4.jpg",
   },
   {
     title: "Swiss Alps",
     region: "Switzerland",
     description: "Exclusive chalets, helicopter access, and Michelin-star alpine dining in total privacy",
-    image: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1531366936337-7c912a4589a7.jpg",
   },
   {
     title: "Amalfi Coast",
     region: "Italy",
     description: "Cliffside villas, private boats, and curated gastronomic journeys through the Mediterranean",
-    image: "https://images.unsplash.com/photo-1534113414509-0eec2bfb493f?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1534113414509-0eec2bfb493f.jpg",
   },
   {
     title: "Tokyo",
     region: "Japan",
     description: "Ryokan retreats, private tea ceremonies, and exclusive cultural immersion with local guides",
-    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80",
+    image: "/images/1540959733332-eab4deabeeaf.jpg",
   },
 ];
 
@@ -65,11 +67,7 @@ export function FeaturedDestinations() {
             <AnimatedSection key={dest.title} delay={i * 100}>
               <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
                 <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={dest.image}
-                    alt={dest.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <Image src={dest.image} alt={dest.title} width={800} height={600} sizes="(max-width: 768px) 100vw, 33vw" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
                   <div className="absolute bottom-4 left-4">
                     <span className="text-white/60 text-[10px] uppercase tracking-[0.3em]">

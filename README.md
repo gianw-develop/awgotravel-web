@@ -1,48 +1,29 @@
-# AW GO TRAVEL - Premium Travel Agency
+# AW GOTRAVEL
 
-Website for **AW GO TRAVEL LLC** - Your premium travel agency for unforgettable experiences.
+Official website for **AW Gotravel LLC**, a private travel design and lifestyle coordination company. AW GOTRAVEL is not a travel agency and does not sell flights, rooms, tickets, or travel packages.
 
-## Tech Stack
+## Technology
 
-- **Next.js 16** (App Router, TypeScript)
-- **Tailwind CSS 4**
-- **Framer Motion** (animations)
-- **Supabase** (database for contact form)
-- **Vercel** (deployment)
+- Next.js App Router with TypeScript
+- Tailwind CSS
+- Framer Motion
+- Vercel deployment
 
-## Getting Started
+## Local development
 
-```bash
-npm install
-npm run dev
-```
+Run `npm install`, then `npm run dev`, and open http://localhost:3000.
 
-Open [http://localhost:3000](http://localhost:3000).
+The public inquiry form opens the visitor's email application with a prepared message addressed to `sales@awgotravel.com`. It does not require environment variables or store form data in a database.
 
-## Environment Variables
+## Quality checks
 
-Create a `.env.local` file with:
+Run `npm run lint`, `npm run build`, and `npm audit`.
 
-```
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-```
+## Public pages
 
-## Supabase Setup
-
-Run `supabase-setup.sql` in your Supabase SQL Editor to create the `inquiries` table for the contact form.
-
-## Deployment to Vercel
-
-1. Push to GitHub
-2. Import project in [vercel.com](https://vercel.com)
-3. Add environment variables in Vercel project settings
-4. Deploy
-
-## Pages
-
-- `/` - Homepage with hero, destinations, services, testimonials
-- `/destinations` - All travel destinations
-- `/services` - Full service offerings
-- `/about` - Company story, mission, values
-- `/contact` - Contact form (saves to Supabase)
+- `/` - Home
+- `/destinations` - Journey inspiration
+- `/services` - Private design and coordination services
+- `/about` - Company profile
+- `/contact` - Inquiry form and contact details
+- `/terms`, `/privacy`, `/refund-policy` - Policies

@@ -26,7 +26,7 @@ const services = [
       "Business meets leisure. Designed for networking trips, conferences, private meetings, or premium vacations where every hour matters.",
     includes: [
       "Full itinerary design",
-      "Premium transfers & hotels",
+      "Transfer and accommodation research",
       "Private dining coordination",
       "Flexible agenda management",
     ],
@@ -72,7 +72,7 @@ export function Services() {
             <span className="font-medium">It Is Designed.</span>
           </h2>
           <p className="text-slate max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            We don&apos;t sell generic bookings. We design private travel
+            We don&apos;t sell travel inventory. We design private journeys
             experiences for clients who value time, privacy, and precision.
           </p>
         </AnimatedSection>

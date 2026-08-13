@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 interface LogoProps {
   className?: string;
   variant?: "full" | "icon";
@@ -11,21 +13,13 @@ export function Logo({ className = "", variant = "full", light = false }: LogoPr
 
   if (variant === "icon") {
     return (
-      <img
-        src="/favicon.png"
-        alt="AW GOTRAVEL"
-        className={`w-10 h-10 object-contain ${className}`}
-      />
+      <Image src="/favicon.png" alt="AW GOTRAVEL" width={40} height={40} sizes="40px" className={`w-10 h-10 object-contain ${className}`} />
     );
   }
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <img
-        src="/favicon.png"
-        alt="AW GOTRAVEL"
-        className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
-      />
+      <Image src="/favicon.png" alt="AW GOTRAVEL" width={48} height={48} sizes="(max-width: 640px) 40px, 48px" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
       <div className="flex flex-col">
         <span
           className="text-lg sm:text-xl font-medium tracking-[0.15em] leading-tight"

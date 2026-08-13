@@ -10,9 +10,8 @@ import {
   Clock,
   Send,
   CheckCircle,
-  Loader2,
 } from "lucide-react";
-import { getSupabase } from "@/lib/supabase";
+
 
 interface FormData {
   name: string;
@@ -46,8 +45,8 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    value: "Contact Us",
-    href: "tel:+1234567890",
+    value: "+1 409 995-3371",
+    href: "tel:+14099953371",
   },
   {
     icon: MapPin,
@@ -65,9 +64,7 @@ const contactInfo = [
 
 export default function ContactPage() {
   const [form, setForm] = useState<FormData>(initialForm);
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<"idle" | "sent">("idle");
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -77,33 +74,22 @@ export default function ContactPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("sending");
-
-    try {
-      const supabase = getSupabase();
-      const { error } = await supabase.from("inquiries").insert([
-        {
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          destination: form.destination,
-          travelers: parseInt(form.travelers),
-          travel_dates: form.dates,
-          budget: form.budget,
-          message: form.message,
-          created_at: new Date().toISOString(),
-        },
-      ]);
-
-      if (error) throw error;
-      setStatus("sent");
-      setForm(initialForm);
-    } catch {
-      setStatus("error");
-      setTimeout(() => setStatus("idle"), 4000);
-    }
+    const subject = encodeURIComponent(`Private inquiry from ${form.name || "website visitor"}`);
+    const body = encodeURIComponent([
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone || "Not provided"}`,
+      `Destination idea: ${form.destination || "Not provided"}`,
+      `Travelers: ${form.travelers}`,
+      `Dates: ${form.dates || "Not provided"}`,
+      `Budget range: ${form.budget || "Not provided"}`,
+      "",
+      form.message || "No additional message provided.",
+    ].join("\n"));
+    window.location.href = `mailto:sales@awgotravel.com?subject=${subject}&body=${body}`;
+    setStatus("sent");
   };
 
   return (
@@ -112,7 +98,7 @@ export default function ContactPage() {
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1436491865332-7a61a109db05?auto=format&fit=crop&w=2000&q=80')`,
+            backgroundImage: `url('/images/1507525428034-b723cf961d3e.jpg')`,
           }}
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -165,8 +151,7 @@ export default function ContactPage() {
                         Thank You!
                       </h3>
                       <p className="text-slate">
-                        Your inquiry has been received. Our team will contact
-                        you within 24 hours.
+                        Your email application has been opened with your inquiry ready to send.
                       </p>
                       <button
                         onClick={() => setStatus("idle")}
@@ -179,11 +164,9 @@ export default function ContactPage() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid sm:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-navy mb-2">
-                            Full Name *
-                          </label>
+                          <label htmlFor="full-name" className="block text-sm font-medium text-navy mb-2">Full Name *</label>
                           <input
-                            type="text"
+                            id="full-name" type="text"
                             name="name"
                             required
                             value={form.name}
@@ -193,11 +176,9 @@ export default function ContactPage() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-navy mb-2">
-                            Email Address *
-                          </label>
+                          <label htmlFor="email-address" className="block text-sm font-medium text-navy mb-2">Email Address *</label>
                           <input
-                            type="email"
+                            id="email-address" type="email"
                             name="email"
                             required
                             value={form.email}
@@ -210,11 +191,9 @@ export default function ContactPage() {
 
                       <div className="grid sm:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-navy mb-2">
-                            Phone Number
-                          </label>
+                          <label htmlFor="phone-number" className="block text-sm font-medium text-navy mb-2">Phone Number</label>
                           <input
-                            type="tel"
+                            id="phone-number" type="tel"
                             name="phone"
                             value={form.phone}
                             onChange={handleChange}
@@ -223,11 +202,9 @@ export default function ContactPage() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-navy mb-2">
-                            Desired Destination
-                          </label>
+                          <label htmlFor="desired-destination" className="block text-sm font-medium text-navy mb-2">Desired Destination</label>
                           <input
-                            type="text"
+                            id="desired-destination" type="text"
                             name="destination"
                             value={form.destination}
                             onChange={handleChange}
@@ -239,11 +216,9 @@ export default function ContactPage() {
 
                       <div className="grid sm:grid-cols-3 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-navy mb-2">
-                            Travelers
-                          </label>
+                          <label htmlFor="travelers" className="block text-sm font-medium text-navy mb-2">Travelers</label>
                           <select
-                            name="travelers"
+                            id="travelers" name="travelers"
                             value={form.travelers}
                             onChange={handleChange}
                             className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/20 transition-colors text-sm bg-white text-navy"
@@ -257,11 +232,9 @@ export default function ContactPage() {
                           </select>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-navy mb-2">
-                            Travel Dates
-                          </label>
+                          <label htmlFor="travel-dates" className="block text-sm font-medium text-navy mb-2">Travel Dates</label>
                           <input
-                            type="text"
+                            id="travel-dates" type="text"
                             name="dates"
                             value={form.dates}
                             onChange={handleChange}
@@ -270,11 +243,9 @@ export default function ContactPage() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-navy mb-2">
-                            Budget Range
-                          </label>
+                          <label htmlFor="budget-range" className="block text-sm font-medium text-navy mb-2">Budget Range</label>
                           <select
-                            name="budget"
+                            id="budget-range" name="budget"
                             value={form.budget}
                             onChange={handleChange}
                             className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/20 transition-colors text-sm bg-white text-navy"
@@ -290,42 +261,23 @@ export default function ContactPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-navy mb-2">
-                          Tell Us About Your Dream Trip
-                        </label>
+                        <label htmlFor="tell-us-about-your-dream-trip" className="block text-sm font-medium text-navy mb-2">Tell Us About Your Dream Trip</label>
                         <textarea
-                          name="message"
+                          id="tell-us-about-your-dream-trip" name="message"
                           rows={5}
                           value={form.message}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/20 transition-colors text-sm resize-none bg-white text-navy"
-                          placeholder="Describe your ideal vacation — activities, interests, special occasions..."
+                          placeholder="Describe your ideal journey - interests, pace, people, and special occasions..."
                         />
                       </div>
 
-                      {status === "error" && (
-                        <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg">
-                          Something went wrong. Please try again or email us
-                          directly at sales@awgotravel.com
-                        </div>
-                      )}
-
                       <button
                         type="submit"
-                        disabled={status === "sending"}
-                        className="w-full sm:w-auto bg-gold hover:bg-gold-dark disabled:opacity-60 text-navy font-semibold px-10 py-4 rounded-full transition-all duration-300 text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2"
+                        className="w-full sm:w-auto bg-gold hover:bg-gold-dark text-navy font-semibold px-10 py-4 rounded-full transition-all duration-300 text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2"
                       >
-                        {status === "sending" ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            Sending...
-                          </>
-                        ) : (
-                          <>
-                            <Send className="w-4 h-4" />
-                            Send Inquiry
-                          </>
-                        )}
+                        <Send className="w-4 h-4" />
+                        Open Email Inquiry
                       </button>
                     </form>
                   )}
