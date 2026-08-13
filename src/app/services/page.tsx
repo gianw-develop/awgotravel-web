@@ -248,6 +248,35 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <section id="planning-modules" className="py-16 bg-white scroll-mt-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <div className="rounded-2xl border border-gray-100 bg-cream p-8 sm:p-10">
+              <span className="text-gold text-[10px] font-medium tracking-[0.4em] uppercase">Scoped Professional Work</span>
+              <h2 className="text-2xl sm:text-3xl font-light text-navy mt-3 mb-4 tracking-tight">Individual Planning Modules</h2>
+              <p className="text-slate font-light leading-relaxed max-w-3xl">
+                For narrowly scoped needs, AW GOTRAVEL offers individual research, itinerary-design, and coordination deliverables from $5 to $200. These are professional service fees only. We do not sell or book flights, rooms, tickets, travel packages, reservations, or third-party inventory.
+              </p>
+              <details className="mt-6 rounded-xl border border-gray-200 bg-white p-5 text-sm text-navy/75">
+                <summary className="cursor-pointer font-medium text-navy">View the 37 available modules and prices</summary>
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 leading-relaxed">
+                  <p><strong>$5:</strong> Departure Readiness Card; Weather &amp; Wardrobe Snapshot; Tipping &amp; Etiquette Card; Time-Zone Adjustment Note; Arrival Orientation Card.</p>
+                  <p><strong>$10:</strong> Entry Requirement Source Finder; Neighborhood Quick Compare; Local Mobility Quick Guide; Dining Mini-Shortlist; Connectivity Quick Brief.</p>
+                  <p><strong>$15:</strong> Destination Fit Scorecard; Accommodation Area Match Brief; Ground Transfer Options Brief; Dietary Communication Pack; Cultural Calendar Snapshot.</p>
+                  <p><strong>$20:</strong> Custom Day Route Plan; Remote-Work Setup Brief; Accessibility Research Snapshot; Wellness Day Concept; Family Pace &amp; Break Plan.</p>
+                  <p><strong>$25:</strong> Two-Day Experience Outline; Restaurant Research Portfolio; Celebration Moment Concept; Bleisure Extension Brief; Disruption Contingency Map.</p>
+                  <p><strong>$30:</strong> Three-Day Itinerary Blueprint; Neighborhood Decision Dossier; Intercity Connection Research Brief; Dining &amp; Culture Evening Sequence; Existing Itinerary Audit.</p>
+                  <p><strong>$40–$95:</strong> Founder Reset Travel Brief ($40); Executive Meeting-Day Logistics Plan ($45); Private Celebration Journey Concept ($55); Five-Day Private Itinerary Design ($75); Dual-Destination Journey Design ($95).</p>
+                  <p><strong>$150–$200:</strong> Executive Escape Foundation Plan ($150); Multi-Destination Planning Blueprint ($200).</p>
+                </div>
+              </details>
+              <p className="text-xs text-slate mt-5 leading-relaxed">
+                Purchase only after AW GOTRAVEL confirms the scope in writing. Delivery timing and refund treatment follow the agreed scope and our published Refund &amp; Cancellation Policy.
+              </p>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
       <section className="py-20 bg-navy text-center">
         <div className="max-w-3xl mx-auto px-4">
           <AnimatedSection>

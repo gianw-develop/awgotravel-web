@@ -7,6 +7,7 @@ const quickLinks = [
   { href: "/services", label: "Services" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
+  { href: "/pay", label: "Secure Payment" },
 ];
 
 const legalLinks = [

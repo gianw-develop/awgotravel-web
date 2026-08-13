@@ -41,3 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# ApexStart local state and isolated provider authentication
+.apexstart/
+/supabase/.temp/

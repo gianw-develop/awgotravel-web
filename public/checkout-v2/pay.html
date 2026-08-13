@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Complete your payment</title>
+  <link rel="stylesheet" href="/payment-theme.css">
+  <style>
+    body{align-items:center}.payment-layout{position:relative;z-index:1;width:min(100%,1370px);display:grid;grid-template-columns:minmax(360px,.86fr) minmax(560px,1.14fr);gap:82px;align-items:center}.trust-panel{padding:30px 12px}.security-badge{display:inline-flex;align-items:center;gap:9px;margin:0 0 66px;padding:10px 16px;border:1px solid #3fb858;border-radius:8px;background:#effbf1;color:#207b35;font-size:14px;font-weight:760;box-shadow:0 6px 18px rgba(46,163,73,.08)}.security-badge svg{width:17px;height:17px;fill:currentColor;flex:none}.trust-panel h1{margin-bottom:14px;font-size:clamp(42px,4.1vw,54px);line-height:1.02;color:#07143d}.trust-panel>p{max-width:430px;margin:0 0 48px;font-size:18px;color:#53617a}.trust-list{display:grid;gap:30px}.trust-item{display:grid;grid-template-columns:66px 1fr;gap:19px;align-items:start}.trust-icon{width:66px;height:66px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#f5f2ff,#eeecff);color:#6048ee;box-shadow:0 8px 24px rgba(99,91,255,.07)}.trust-icon svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.trust-copy{padding-top:5px}.trust-copy strong{display:flex;align-items:center;gap:8px;color:#07143d;font-size:17px}.trust-copy p{max-width:390px;margin:6px 0 0;color:#637088}.verified{width:16px;height:16px;display:inline-grid;place-items:center;border-radius:50%;background:#35a853;color:#fff;font-size:10px}.stripe-footer{max-width:430px;margin-top:48px;padding-top:27px;border-top:1px solid #dce1ea;color:#68748a}.stripe-footer strong{margin-left:7px;color:#635bff;font-size:21px;letter-spacing:-.04em}.shell{width:100%;max-width:none;padding:48px 58px 38px;border-radius:20px}.shell h2{margin:0 0 10px;font-size:36px;letter-spacing:-.035em;color:#07143d}.shell .intro{margin:0 0 31px}.field{margin-bottom:19px}.field input{min-height:56px}.terms{margin-top:7px}.consent-details{margin:4px 0 6px 29px;color:var(--muted);font-size:12px}.consent-details summary{width:max-content;cursor:pointer;color:#635bff;text-decoration:underline;text-underline-offset:2px}.consent-details p{margin:7px 0 8px;line-height:1.5}#submit{margin-top:24px;min-height:56px}.footer{margin-top:25px}@media(max-width:900px){.payment-layout{grid-template-columns:1fr;gap:25px;max-width:660px}.trust-panel{padding:8px 5px}.security-badge{margin-bottom:28px}.trust-list,.stripe-footer{display:none}.trust-panel>p{margin-bottom:0}.shell{padding:34px 28px}}@media(max-width:560px){.trust-panel h1{font-size:36px}.trust-panel>p{font-size:16px}.shell{padding:28px 20px}.shell h2{font-size:29px}}
+  </style>
+</head>
+<body>
+  <main class="payment-layout">
+    <section class="trust-panel" aria-label="Payment security information">
+      <div class="security-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2Zm-7-2a2 2 0 1 1 4 0v2h-4V6Zm3 10.73V18h-2v-1.27a2 2 0 1 1 2 0Z"/></svg><span>SSL Secure</span></div>
+      <h1>Secure payment</h1>
+      <p>You're paying the business directly on its secure website.</p>
+      <div class="trust-list">
+        <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2M12 12v3"/></svg></div><div class="trust-copy"><strong>Own secure domain <span class="verified">✓</span></strong><p>You're on the official secure payment domain.</p></div></div>
+        <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><div class="trust-copy"><strong>Encrypted by Stripe <span class="verified">✓</span></strong><p>Your information is encrypted and securely processed by Stripe.</p></div></div>
+        <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6"/></svg></div><div class="trust-copy"><strong>Receipt after payment <span class="verified">✓</span></strong><p>We'll email you a receipt once your payment is confirmed.</p></div></div>
+      </div>
+      <div class="stripe-footer">Powered by <strong>stripe</strong></div>
+    </section>
+    <section class="shell">
+    <h2>Payment details</h2>
+    <p class="intro">Enter the agreed amount and continue securely.</p>
+    <form id="payment-form">
+      <div class="field"><label for="amount">Amount (USD)</label><div class="amount"><span>$</span><input id="amount" name="amount" type="number" min="5" max="200" step="1" required autocomplete="transaction-amount"></div></div>
+      <div class="field"><label for="name">Full name</label><input id="name" name="name" required maxlength="120" autocomplete="name"></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required maxlength="254" autocomplete="email"></div>
+      <label class="terms"><input id="terms" type="checkbox" required><span>I agree to the <a href="/terms" target="_blank">Terms</a>, <a href="/privacy" target="_blank">Privacy Policy</a>, and <a href="/refund-policy" target="_blank">Refund Policy</a>.</span></label>
+      <label class="terms"><input id="work-approved" type="checkbox" required><span>I approve the agreed work and authorize this payment.</span></label>
+      <details class="consent-details"><summary>Details</summary><p>I confirm that the agreed work was presented to me, that I approved it, and that I authorize this payment.</p></details>
+      <button id="submit" type="submit">Continue securely</button>
+      <div id="message" class="message" role="status"></div>
+      <div id="suggestions" class="suggestions"></div>
+    </form>
+    <div class="footer">Secure payment powered by Stripe.</div>
+    </section>
+  </main>
+  <script>
+    const form=document.getElementById('payment-form');const button=document.getElementById('submit');const message=document.getElementById('message');const suggestions=document.getElementById('suggestions');
+    form.addEventListener('submit',async(event)=>{event.preventDefault();button.disabled=true;message.textContent='Preparing your secure payment…';message.className='message';suggestions.innerHTML='';try{const response=await fetch('/api/checkout/session',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({amount:Number(form.amount.value),name:form.name.value,email:form.email.value,termsAccepted:document.getElementById('terms').checked,workApproved:document.getElementById('work-approved').checked})});const data=await response.json();if(!response.ok)throw data;if(!data.checkoutPath||!data.stripeCheckoutSessionId)throw new Error('Unable to prepare payment.');window.location.assign(data.checkoutPath)}catch(error){message.textContent=error.error||error.message||'Unable to prepare payment. Please try again.';message.className='message error';for(const amount of error.suggestions||[]){const item=document.createElement('button');item.type='button';item.textContent=`$${amount}`;item.onclick=()=>{form.amount.value=amount;suggestions.innerHTML=''};suggestions.appendChild(item)}}finally{button.disabled=false}});
+  </script>
+</body>
+</html>

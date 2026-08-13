@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Secure payment</title>
+  <script src="https://js.stripe.com/clover/stripe.js"></script>
+  <link rel="stylesheet" href="/payment-theme.css">
+  <style>
+    .shell{width:min(100%,540px)}.stripe{display:flex;justify-content:center;align-items:center;gap:7px;margin-bottom:22px}.total{margin-bottom:25px}#payment-element{min-height:150px}#submit{margin-top:19px}.security{margin-top:19px}.message{color:var(--danger)}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="stripe">🔒 Secure payment powered by <strong>stripe</strong></div>
+    <div class="total"><span>Total</span><strong id="total">—</strong></div>
+    <form id="payment-form">
+      <div class="payment-box"><div id="payment-element"></div></div>
+      <button id="submit" type="submit">Complete payment</button>
+      <div id="message" class="message" role="alert"></div>
+    </form>
+    <div class="security">Payment details are securely collected and processed by Stripe.</div>
+  </main>
+  <script>
+    const params=new URLSearchParams(location.search);const sessionId=params.get('session_id');let checkout=null;const message=document.getElementById('message');const submit=document.getElementById('submit');
+    async function fetchJson(url,options){const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),15000);try{const response=await fetch(url,{...options,signal:controller.signal});const data=await response.json();if(!response.ok)throw new Error(data.error||'Unable to load secure payment.');return data}finally{clearTimeout(timer)}}
+    async function start(){
+      submit.disabled=true;message.textContent='Loading secure payment…';
+      if(!sessionId)throw new Error('This payment session is unavailable. Return to the payment link and try again.');
+      const state=await fetchJson(`/api/checkout/client-secret?session_id=${encodeURIComponent(sessionId)}`);
+      if(!state.expiresAt||Date.now()>=state.expiresAt*1000)throw new Error('This payment session has expired. Return to the payment link and start again.');
+      document.getElementById('total').textContent=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(state.amountCents/100);
+      const config=await fetchJson('/api/stripe/config');
+      const stripe=Stripe(config.publishableKey);
+      checkout=stripe.initCheckoutElementsSdk({clientSecret:state.clientSecret,elementsOptions:{appearance:{theme:'stripe',variables:{colorPrimary:'#635bff',colorBackground:'#ffffff',colorText:'#111b3f',colorDanger:'#c73c46',borderRadius:'12px',fontFamily:'Inter, ui-sans-serif, system-ui, sans-serif'}}}});
+      const paymentElement=checkout.createPaymentElement({layout:{type:'accordion',defaultCollapsed:false}});
+      paymentElement.mount('#payment-element');
+      submit.disabled=false;
+      message.textContent='';
+      document.getElementById('payment-form').addEventListener('submit',async(event)=>{event.preventDefault();submit.disabled=true;message.textContent='';if(Date.now()>=state.expiresAt*1000){message.textContent='This payment session has expired. Return to the payment link and start again.';return}const result=await checkout.loadActions();if(result.type==='error'){message.textContent=result.error.message||'Unable to complete payment.';submit.disabled=false;return}const confirmation=await result.actions.confirm();if(confirmation.type==='error'){message.textContent=confirmation.error.message||'Unable to complete payment.';submit.disabled=false}})
+    }
+    start().catch(error=>{message.textContent=error.name==='AbortError'?'Stripe took too long to respond. Refresh the page or start a new payment.':error.message||'Unable to load secure payment.';submit.disabled=true});
+  </script>
+</body>
+</html>
