@@ -26,9 +26,6 @@ export function Footer() {
               A private travel design and lifestyle coordination firm for
               founders, executives, and high-profile clients.
             </p>
-            <p className="text-white/30 text-xs mb-6 font-light">
-              Registered LLC - Wyoming, USA
-            </p>
           </div>
 
           <div>
@@ -96,7 +93,7 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-white/50 text-xs">
             &copy; {new Date().getFullYear()} AW GOTRAVEL LLC. All rights
-            reserved. Registered in Wyoming, USA.
+            reserved.
           </p>
           <div className="flex gap-6 text-white/50 text-xs">
             {legalLinks.map((link) => (
