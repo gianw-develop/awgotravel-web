@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -58,13 +59,16 @@ test("Checkout Session contract uses Elements, exact lines, invoice creation, an
   assert.match(captured.return_url, /^https:\/\/www\.awgotravel\.com\/pay\/success/);
 });
 
-test("fixed payment pages remain neutral, light, internal, and policy-complete", () => {
+test("payment pages preserve the approved Stripe-style flow and policies", () => {
   const pay = fs.readFileSync(path.join(paymentAssets, "pay.html"), "utf8");
   const checkout = fs.readFileSync(path.join(paymentAssets, "checkout.html"), "utf8");
   const success = fs.readFileSync(path.join(paymentAssets, "success.html"), "utf8");
-  for (const html of [pay, checkout, success]) assert.doesNotMatch(html, /AW GOTRAVEL|awgotravel/i);
-  assert.match(pay, /SSL Secure/);
-  assert.match(pay, /Secure payment powered by Stripe/);
+  assert.match(pay, /AW Go Travel/);
+  assert.match(pay, /0,00 US\$/);
+  assert.match(pay, /Pay with Cash App/);
+  assert.match(pay, /A QR code will appear/);
+  assert.match(pay, /Powered by <b>stripe<\/b>/);
+  assert.match(pay, /initCheckoutElementsSdk/);
   assert.match(pay, /id="terms"/);
   assert.match(pay, /id="work-approved"/);
   assert.match(pay, /<details class="consent-details">/);
