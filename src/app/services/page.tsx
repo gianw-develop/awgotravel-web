@@ -9,6 +9,11 @@ import {
   ArrowRight,
   Check,
   ShieldCheck,
+  MapPinned,
+  Route,
+  CalendarRange,
+  Gem,
+  Network,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -257,14 +262,17 @@ export default function ServicesPage() {
               <p className="text-slate font-light leading-relaxed max-w-3xl">
                 For narrowly scoped needs, AW GOTRAVEL offers individual research, itinerary-design, and coordination deliverables from $5 to $200. These are professional service fees only. We do not sell or book flights, rooms, tickets, travel packages, reservations, or third-party inventory.
               </p>
-              <div className="mt-7 divide-y divide-gray-200 border-y border-gray-200">
+              <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-6">
                 {[
-                  ["Travel essentials", "$5–$15 USD", "Readiness, destination, mobility, dining and accommodation research briefs.", "PDF by email · 1–2 business days"],
-                  ["Focused itinerary planning", "$20–$30 USD", "Day routes, experience outlines, contingency maps and itinerary audits.", "PDF by email · 2–4 business days"],
-                  ["Executive travel briefs", "$40–$55 USD", "Founder resets, meeting-day logistics and private celebration concepts.", "PDF by email · 4–5 business days"],
-                  ["Private journey design", "$75–$95 USD", "Five-day and dual-destination private itinerary design.", "PDF by email · 5–6 business days"],
-                  ["Complex planning blueprints", "$150–$200 USD", "Executive escape foundations and multi-destination planning systems.", "PDF by email · 7–8 business days"],
-                ].map(([title, range, detail, delivery], index) => <article key={title} className="grid gap-2 py-5 sm:grid-cols-[36px_1fr_.8fr_.55fr_1fr] sm:items-center sm:gap-5"><span className="text-[10px] font-medium text-gold">0{index + 1}</span><h3 className="font-medium text-navy">{title}</h3><p className="text-sm leading-relaxed text-slate">{detail}</p><strong className="text-sm font-medium text-gold">{range}</strong><small className="text-xs leading-relaxed text-slate">{delivery}</small></article>)}
+                  [MapPinned, "Travel essentials", "$5–$15 USD", "Readiness, destination, mobility, dining and accommodation research briefs.", "PDF by email · 1–2 business days"],
+                  [Route, "Focused itinerary planning", "$20–$30 USD", "Day routes, experience outlines, contingency maps and itinerary audits.", "PDF by email · 2–4 business days"],
+                  [CalendarRange, "Executive travel briefs", "$40–$55 USD", "Founder resets, meeting-day logistics and private celebration concepts.", "PDF by email · 4–5 business days"],
+                  [Gem, "Private journey design", "$75–$95 USD", "Five-day and dual-destination private itinerary design.", "PDF by email · 5–6 business days"],
+                  [Network, "Complex planning blueprints", "$150–$200 USD", "Executive escape foundations and multi-destination planning systems.", "PDF by email · 7–8 business days"],
+                ].map(([Icon, title, range, detail, delivery], index) => {
+                  const ModuleIcon = Icon as typeof MapPinned;
+                  return <article key={title as string} className={`group relative overflow-hidden rounded-2xl border border-navy/10 bg-white p-6 shadow-[0_14px_40px_rgba(12,30,48,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_20px_50px_rgba(12,30,48,0.12)] ${index < 3 ? "lg:col-span-2" : "lg:col-span-3"}`}><div className="mb-8 flex items-center justify-between"><span className="grid h-11 w-11 place-items-center rounded-full border border-gold/25 bg-cream text-gold"><ModuleIcon size={19} strokeWidth={1.6} /></span><span className="text-[10px] font-medium tracking-[0.24em] text-gold">0{index + 1}</span></div><h3 className="text-lg font-medium tracking-tight text-navy">{title as string}</h3><p className="mt-3 min-h-[66px] text-sm leading-relaxed text-slate">{detail as string}</p><div className="mt-6 flex flex-wrap items-end justify-between gap-3 border-t border-gray-100 pt-5"><strong className="text-base font-medium text-gold">{range as string}</strong><small className="max-w-[190px] text-right text-[11px] leading-relaxed text-slate">{delivery as string}</small></div></article>;
+                })}
               </div>
               <p className="text-xs text-slate mt-5 leading-relaxed">All prices are in USD. Final scope, deliverables and payment amount are confirmed before work begins. AW GOTRAVEL provides research, design and coordination services only; clients purchase third-party travel directly. <Link href="/refund-policy" className="text-gold hover:underline">Refund Policy</Link><span className="mx-2">·</span><Link href="/refund-policy" className="text-gold hover:underline">Cancellation Policy</Link></p>
             </div>
