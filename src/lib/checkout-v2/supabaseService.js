@@ -214,6 +214,45 @@ async function releaseWebhookEvent(eventId) {
   if (error) console.error(`[releaseWebhookEvent] ${error.message}`);
 }
 
+async function upsertPaymentLinkOrder(session, fields = {}) {
+  const paymentLinkId = typeof session.payment_link === "string" ? session.payment_link : session.payment_link?.id;
+  const paymentIntentId = typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id;
+  const customerId = typeof session.customer === "string" ? session.customer : session.customer?.id;
+  const customName = session.custom_fields?.find((field) => field.key === "customer_name")?.text?.value;
+  const { data: existing, error: lookupError } = await supabase
+    .from("preorders")
+    .select("id")
+    .eq("stripe_checkout_session_id", session.id)
+    .maybeSingle();
+  if (lookupError) throw new Error(`Supabase upsertPaymentLinkOrder lookup: ${lookupError.message}`);
+  const payload = {
+    customer_email: session.customer_details?.email || session.customer_email || "unknown@stripe-payment-link.invalid",
+    customer_name: session.customer_details?.name || customName || "Stripe Payment Link customer",
+    stripe_checkout_session_id: session.id,
+    stripe_payment_intent_id: paymentIntentId,
+    stripe_customer_id: customerId || null,
+    amount_cents: session.amount_total,
+    currency: session.currency,
+    line_items: fields.line_items || [],
+    combination_hash: fields.combination_hash || `pending:${session.id}`,
+    policy_version: "payment-link-postpay-v1",
+    acceptance_version: "stripe-payment-link-v1",
+    acceptance_text: `Payment initiated through approved Stripe Payment Link ${paymentLinkId}`,
+    accepted_at: new Date((session.created || Math.floor(Date.now() / 1000)) * 1000).toISOString(),
+    status: fields.status || "paid",
+    stripe_invoice_id: fields.stripe_invoice_id || null,
+    failure_reason: fields.failure_reason || null,
+    paid_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  };
+  const query = existing
+    ? supabase.from("preorders").update(payload).eq("id", existing.id)
+    : supabase.from("preorders").insert(payload);
+  const { data, error } = await query.select().single();
+  if (error) throw new Error(`Supabase upsertPaymentLinkOrder: ${error.message}`);
+  return data;
+}
+
 async function upsertDispute(dispute) {
   const chargeId = typeof dispute.charge === "string" ? dispute.charge : dispute.charge?.id;
   let preorderId = dispute.metadata?.preorder_id || null;
@@ -258,5 +297,6 @@ module.exports = {
   markDelivered,
   recordWebhookEvent,
   releaseWebhookEvent,
+  upsertPaymentLinkOrder,
   upsertDispute,
 };

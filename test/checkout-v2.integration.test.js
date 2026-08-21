@@ -21,16 +21,21 @@ test("approved catalog contains 37 unique owned products and prices on the exact
   assert.equal(new Set(FIXED_PRODUCTS.map((item) => item.stripeProductId)).size, 37);
   assert.equal(new Set(FIXED_PRODUCTS.map((item) => item.stripePriceId)).size, 37);
   const counts = Object.fromEntries([...new Set(FIXED_PRODUCTS.map((item) => item.price))].map((price) => [price, FIXED_PRODUCTS.filter((item) => item.price === price).length]));
-  assert.deepEqual(counts, { 5: 5, 10: 5, 15: 5, 20: 5, 25: 5, 30: 5, 40: 1, 45: 1, 55: 1, 75: 1, 95: 1, 150: 1, 200: 1 });
+  assert.deepEqual(counts, {
+    6: 1, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1,
+    16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1,
+    26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1,
+    43: 1, 44: 1, 45: 1, 46: 1, 47: 1, 48: 1, 49: 1,
+  });
   assert.ok(FIXED_PRODUCTS.every((item) => item.taxCode === "txcd_20060048"));
 });
 
-test("$195 uses a balanced five-service combination without the $150 service", () => {
+test("$195 uses a balanced five-service combination from the microservice ladder", () => {
   const selected = chooseExactCombination(19500, [], 5);
   assert.ok(selected);
   assert.equal(selected.items.length, 5);
   assert.equal(selected.items.reduce((sum, item) => sum + item.unitAmountCents, 0), 19500);
-  assert.ok(selected.items.every((item) => item.unitAmountCents !== 15000));
+  assert.ok(selected.items.every((item) => item.unitAmountCents >= 600 && item.unitAmountCents <= 4900));
   assert.equal(new Set(selected.items.map((item) => item.stripePriceId)).size, 5);
 });
 

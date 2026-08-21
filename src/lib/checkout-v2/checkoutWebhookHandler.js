@@ -1,8 +1,16 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { getPreorderByCheckoutSessionId, getPreorderByChargeId, markPreorderPaid, updatePreorderStatus, upsertDispute } = require("./supabaseService");
+const { fulfillPaidPaymentLinkSession } = require("./postPaymentFulfillment");
 
 async function handleCheckoutSessionPaid(session, stripe) {
   if (session.payment_status !== "paid") return null;
+  if (session.payment_link) {
+    const allowedPaymentLinkIds = String(process.env.STRIPE_PAYMENT_LINK_IDS || "")
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean);
+    return fulfillPaidPaymentLinkSession(session, stripe, { allowedPaymentLinkIds });
+  }
   const preorder = await getPreorderByCheckoutSessionId(session.id);
   if (!preorder) throw new Error(`Preorder for Checkout Session ${session.id} not found`);
   if (session.amount_total !== preorder.amount_cents || session.currency !== preorder.currency) throw new Error(`Stripe Checkout Session ${session.id} does not match preorder ${preorder.id}`);
