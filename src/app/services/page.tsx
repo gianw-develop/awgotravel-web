@@ -257,22 +257,16 @@ export default function ServicesPage() {
               <p className="text-slate font-light leading-relaxed max-w-3xl">
                 For narrowly scoped needs, AW GOTRAVEL offers individual research, itinerary-design, and coordination deliverables from $5 to $200. These are professional service fees only. We do not sell or book flights, rooms, tickets, travel packages, reservations, or third-party inventory.
               </p>
-              <details className="mt-6 rounded-xl border border-gray-200 bg-white p-5 text-sm text-navy/75">
-                <summary className="cursor-pointer font-medium text-navy">View the 37 available modules and prices</summary>
-                <div className="mt-5 grid gap-3 sm:grid-cols-2 leading-relaxed">
-                  <p><strong>$5:</strong> Departure Readiness Card; Weather &amp; Wardrobe Snapshot; Tipping &amp; Etiquette Card; Time-Zone Adjustment Note; Arrival Orientation Card.</p>
-                  <p><strong>$10:</strong> Entry Requirement Source Finder; Neighborhood Quick Compare; Local Mobility Quick Guide; Dining Mini-Shortlist; Connectivity Quick Brief.</p>
-                  <p><strong>$15:</strong> Destination Fit Scorecard; Accommodation Area Match Brief; Ground Transfer Options Brief; Dietary Communication Pack; Cultural Calendar Snapshot.</p>
-                  <p><strong>$20:</strong> Custom Day Route Plan; Remote-Work Setup Brief; Accessibility Research Snapshot; Wellness Day Concept; Family Pace &amp; Break Plan.</p>
-                  <p><strong>$25:</strong> Two-Day Experience Outline; Restaurant Research Portfolio; Celebration Moment Concept; Bleisure Extension Brief; Disruption Contingency Map.</p>
-                  <p><strong>$30:</strong> Three-Day Itinerary Blueprint; Neighborhood Decision Dossier; Intercity Connection Research Brief; Dining &amp; Culture Evening Sequence; Existing Itinerary Audit.</p>
-                  <p><strong>$40–$95:</strong> Founder Reset Travel Brief ($40); Executive Meeting-Day Logistics Plan ($45); Private Celebration Journey Concept ($55); Five-Day Private Itinerary Design ($75); Dual-Destination Journey Design ($95).</p>
-                  <p><strong>$150–$200:</strong> Executive Escape Foundation Plan ($150); Multi-Destination Planning Blueprint ($200).</p>
-                </div>
-              </details>
-              <p className="text-xs text-slate mt-5 leading-relaxed">
-                Purchase only after AW GOTRAVEL confirms the scope in writing. Delivery timing and refund treatment follow the agreed scope and our published Refund &amp; Cancellation Policy.
-              </p>
+              <div className="mt-7 divide-y divide-gray-200 border-y border-gray-200">
+                {[
+                  ["Travel essentials", "$5–$15 USD", "Readiness, destination, mobility, dining and accommodation research briefs.", "PDF by email · 1–2 business days"],
+                  ["Focused itinerary planning", "$20–$30 USD", "Day routes, experience outlines, contingency maps and itinerary audits.", "PDF by email · 2–4 business days"],
+                  ["Executive travel briefs", "$40–$55 USD", "Founder resets, meeting-day logistics and private celebration concepts.", "PDF by email · 4–5 business days"],
+                  ["Private journey design", "$75–$95 USD", "Five-day and dual-destination private itinerary design.", "PDF by email · 5–6 business days"],
+                  ["Complex planning blueprints", "$150–$200 USD", "Executive escape foundations and multi-destination planning systems.", "PDF by email · 7–8 business days"],
+                ].map(([title, range, detail, delivery], index) => <article key={title} className="grid gap-2 py-5 sm:grid-cols-[36px_1fr_.8fr_.55fr_1fr] sm:items-center sm:gap-5"><span className="text-[10px] font-medium text-gold">0{index + 1}</span><h3 className="font-medium text-navy">{title}</h3><p className="text-sm leading-relaxed text-slate">{detail}</p><strong className="text-sm font-medium text-gold">{range}</strong><small className="text-xs leading-relaxed text-slate">{delivery}</small></article>)}
+              </div>
+              <p className="text-xs text-slate mt-5 leading-relaxed">All prices are in USD. Final scope, deliverables and payment amount are confirmed before work begins. AW GOTRAVEL provides research, design and coordination services only; clients purchase third-party travel directly. <Link href="/refund-policy" className="text-gold hover:underline">Refund Policy</Link><span className="mx-2">·</span><Link href="/refund-policy" className="text-gold hover:underline">Cancellation Policy</Link></p>
             </div>
           </AnimatedSection>
         </div>
