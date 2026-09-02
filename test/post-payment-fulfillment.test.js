@@ -21,6 +21,7 @@ test("post-payment validation rejects cents and out-of-range totals", () => {
 
 test("an approved paid link attaches its original payment to the itemized invoice", async () => {
   const attached = [];
+  const invoiceItems = [];
   const stripe = {
     invoices: {
       create: async () => ({ id: "in_1" }),
@@ -28,12 +29,14 @@ test("an approved paid link attaches its original payment to the itemized invoic
       attachPayment: async (id, body) => attached.push([id, body]),
       retrieve: async () => ({ id: "in_1", status: "paid", amount_remaining: 0 }),
     },
-    invoiceItems: { create: async () => ({ id: "ii_1" }) },
+    invoiceItems: { create: async (body) => { invoiceItems.push(body); return { id: "ii_1" }; } },
   };
   const persisted = [];
   const session = { id: "cs_1", payment_link: "plink_ok", payment_status: "paid", currency: "usd", amount_total: 8000, customer: "cus_1", payment_intent: "pi_1", created: 1 };
   const result = await fulfillPaidPaymentLinkSession(session, stripe, { allowedPaymentLinkIds: ["plink_ok"], persist: async (_session, fields) => persisted.push(fields) });
   assert.equal(result.status, "delivery_pending");
+  assert.match(invoiceItems[0].pricing.price, /^price_/);
+  assert.equal("price" in invoiceItems[0], false);
   assert.deepEqual(attached, [["in_1", { payment_intent: "pi_1" }]]);
   assert.equal(persisted.at(-1).stripe_invoice_id, "in_1");
 });

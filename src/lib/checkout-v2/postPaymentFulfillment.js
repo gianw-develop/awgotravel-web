@@ -51,7 +51,7 @@ async function createAndAttachDetailedInvoice({ session, selected, stripe }) {
   );
   for (const item of selected.items) {
     await stripe.invoiceItems.create(
-      { customer, invoice: invoice.id, price: item.stripePriceId, quantity: 1, metadata },
+      { customer, invoice: invoice.id, pricing: { price: item.stripePriceId }, quantity: 1, metadata },
       { idempotencyKey: `postpay-item-${session.id}-${item.stripePriceId}` },
     );
   }
