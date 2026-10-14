@@ -68,6 +68,13 @@ function chooseExactCombination(amountCents, usedHashes = [], maxUnits = 3, sour
     throw new Error("Amount must be a positive integer in cents");
   }
 
+  // Preserve the existing $6 tariff for exact $6 payments. The new $5
+  // minimum must not leave previously supported payments uninvoiceable.
+  // This uses the same genuine service and its existing Stripe Price.
+  if (amountCents === 600 && sourceProducts.some((p) => p.stripeProductId === "prod_V48XtlatfHfkPk")) {
+    const items = toUniqueLineItems([{ ...sourceProducts.find((p) => p.stripeProductId === "prod_V48XtlatfHfkPk"), price: 6, stripePriceId: "price_1U6ueTKDtm19TAeEj03nVuXG" }]);
+    return { items, hash: combinationHash(items) };
+  }
   const matches = enumerateExactCombinations(amountCents, maxUnits, sourceProducts);
   const minimumItems = amountCents >= 8000 ? 3 : 1;
   const eligibleMatches = matches.filter((items) => items.length >= minimumItems);

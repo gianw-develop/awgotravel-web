@@ -5,9 +5,9 @@ const { FIXED_PRODUCTS } = require("../src/lib/checkout-v2/catalog");
 const { chooseExactCombination } = require("../src/lib/checkout-v2/preorderAlgorithm");
 const { validatePostPaymentAmount, fulfillPaidPaymentLinkSession } = require("../src/lib/checkout-v2/postPaymentFulfillment");
 
-test("the 37-service travel ladder represents every whole USD amount from $6-$200", () => {
+test("the 37-service travel ladder represents every whole USD amount from $5-$200", () => {
   assert.equal(FIXED_PRODUCTS.length, 37);
-  for (let amount = 6; amount <= 200; amount += 1) {
+  for (let amount = 5; amount <= 200; amount += 1) {
     assert.ok(chooseExactCombination(amount * 100, [], 5), `missing $${amount}`);
   }
 });
@@ -16,7 +16,8 @@ test("post-payment validation rejects cents and out-of-range totals", () => {
   assert.equal(validatePostPaymentAmount(600), true);
   assert.equal(validatePostPaymentAmount(20000), true);
   assert.equal(validatePostPaymentAmount(601), false);
-  assert.equal(validatePostPaymentAmount(500), false);
+  assert.equal(validatePostPaymentAmount(500), true);
+  assert.equal(validatePostPaymentAmount(499), false);
 });
 
 test("an approved paid link attaches its original payment to the itemized invoice", async () => {

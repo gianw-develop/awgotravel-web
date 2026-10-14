@@ -3,7 +3,7 @@ const { chooseExactCombination } = require("./preorderAlgorithm");
 const { FIXED_PRODUCTS } = require("./catalog");
 const { upsertPaymentLinkOrder } = require("./supabaseService");
 
-const MIN_AMOUNT_CENTS = 600;
+const MIN_AMOUNT_CENTS = 500;
 const MAX_AMOUNT_CENTS = 20000;
 const SYSTEM_MODEL = "payment-link-postpay-v1";
 
@@ -69,7 +69,7 @@ async function fulfillPaidPaymentLinkSession(session, stripe, options = {}) {
   if (!assertEligiblePaymentLinkSession(session, options.allowedPaymentLinkIds || [])) return { ignored: true };
   if (!validatePostPaymentAmount(session.amount_total)) {
     const refund = await refundInvalidAmount(session, stripe);
-    await persist(session, { status: "refunded_invalid_amount", failure_reason: "Amount must be a whole USD value from 6 through 200" });
+    await persist(session, { status: "refunded_invalid_amount", failure_reason: "Amount must be a whole USD value from 5 through 200" });
     return { status: "refunded_invalid_amount", refundId: refund.id };
   }
   const selected = chooseExactCombination(session.amount_total, options.usedHashes || [], 5, options.products || FIXED_PRODUCTS);
