@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { chooseExactCombination } = require("./preorderAlgorithm");
 const { FIXED_PRODUCTS } = require("./catalog");
-const { upsertPaymentLinkOrder } = require("./supabaseService");
+const { upsertPaymentLinkOrder, getPreorderByCheckoutSessionId } = require("./supabaseService");
 
 const MIN_AMOUNT_CENTS = 500;
 const MAX_AMOUNT_CENTS = 20000;
@@ -22,17 +22,23 @@ function assertEligiblePaymentLinkSession(session, allowedPaymentLinkIds = []) {
 function validatePostPaymentAmount(amountCents) {
   return Number.isInteger(amountCents)
     && amountCents >= MIN_AMOUNT_CENTS
-    && amountCents <= MAX_AMOUNT_CENTS
-    && amountCents % 100 === 0;
+    && amountCents <= MAX_AMOUNT_CENTS;
 }
 
-async function refundInvalidAmount(session, stripe) {
-  const paymentIntent = typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id;
-  if (!paymentIntent) throw new Error("Paid Payment Link session is missing its PaymentIntent");
-  return stripe.refunds.create(
-    { payment_intent: paymentIntent, reason: "requested_by_customer", metadata: { system_model: SYSTEM_MODEL, invalid_amount: String(session.amount_total) } },
-    { idempotencyKey: `postpay-invalid-refund-${session.id}` },
+async function originalPaidLine(session, stripe) {
+  const pi = await stripe.paymentIntents.retrieve(
+    typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent.id,
+    { expand: ["latest_charge"] }
   );
+  const charge = pi.latest_charge;
+  if (!charge || typeof charge !== "object" || !charge.paid) throw new Error("Cannot verify original charge");
+  if (charge.refunded || charge.amount_refunded > 0) return null;
+  if (pi.amount_received !== session.amount_total || pi.currency !== "usd") throw new Error("Original payment does not match session");
+  const lines = await stripe.checkout.sessions.listLineItems(session.id, { limit: 2 });
+  const line = lines.data[0];
+  if (lines.has_more || lines.data.length !== 1 || line.quantity !== 1 || line.amount_total !== session.amount_total || line.amount_subtotal !== line.amount_total || !line.price?.product) throw new Error("Cannot reconcile original Payment Link line");
+  const product = typeof line.price.product === "string" ? line.price.product : line.price.product.id;
+  return { hash: "original:" + session.id, items: [{ name: line.description, product, unitAmountCents: line.amount_total, stripePriceId: line.price.id }] };
 }
 
 async function createAndAttachDetailedInvoice({ session, selected, stripe }) {
@@ -51,7 +57,7 @@ async function createAndAttachDetailedInvoice({ session, selected, stripe }) {
   );
   for (const item of selected.items) {
     await stripe.invoiceItems.create(
-      { customer, invoice: invoice.id, pricing: { price: item.stripePriceId }, quantity: 1, metadata },
+      { customer, invoice: invoice.id, ...(item.product ? { price_data: { currency: "usd", product: item.product, unit_amount: item.unitAmountCents } } : { pricing: { price: item.stripePriceId } }), quantity: 1, metadata },
       { idempotencyKey: `postpay-item-${session.id}-${item.stripePriceId}` },
     );
   }
@@ -68,11 +74,17 @@ async function fulfillPaidPaymentLinkSession(session, stripe, options = {}) {
   const persist = options.persist || upsertPaymentLinkOrder;
   if (!assertEligiblePaymentLinkSession(session, options.allowedPaymentLinkIds || [])) return { ignored: true };
   if (!validatePostPaymentAmount(session.amount_total)) {
-    const refund = await refundInvalidAmount(session, stripe);
-    await persist(session, { status: "refunded_invalid_amount", failure_reason: "Amount must be a whole USD value from 5 through 200" });
-    return { status: "refunded_invalid_amount", refundId: refund.id };
+    throw new Error("Paid amount outside approved range; requires review without refund");
   }
-  const selected = chooseExactCombination(session.amount_total, options.usedHashes || [], 5, options.products || FIXED_PRODUCTS);
+  let selected;
+  if (session.amount_total % 100 !== 0) {
+    const existing = await (options.lookup || getPreorderByCheckoutSessionId)(session.id);
+    if (existing?.stripe_invoice_id) return { status: existing.status, invoice: { id: existing.stripe_invoice_id } };
+    selected = await originalPaidLine(session, stripe);
+    if (!selected) return { ignored: true, reason: "already_refunded" };
+  } else {
+    selected = chooseExactCombination(session.amount_total, options.usedHashes || [], 5, options.products || FIXED_PRODUCTS);
+  }
   if (!selected) throw new Error(`Approved catalog cannot represent ${session.amount_total} cents`);
   await persist(session, { status: "allocating", line_items: selected.items, combination_hash: selected.hash });
   const invoice = await createAndAttachDetailedInvoice({ session, selected, stripe });
@@ -86,7 +98,6 @@ module.exports = {
   SYSTEM_MODEL,
   assertEligiblePaymentLinkSession,
   validatePostPaymentAmount,
-  refundInvalidAmount,
   createAndAttachDetailedInvoice,
   fulfillPaidPaymentLinkSession,
 };
